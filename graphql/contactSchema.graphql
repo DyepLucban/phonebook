@@ -1,0 +1,42 @@
+# QUERY
+extend type Query {
+  contacts: [Contact!]! @paginate
+  contact(id: ID @eq): Contact @find
+}
+
+# MUTATION
+extend type Mutation {
+  # Create contact
+  createContact(
+    contact_name: String!,
+    contact_number: String! @rules(apply: ["min:11"]),
+  ): Contact! @create
+
+  # Update contact
+  updateContact(
+    id: ID!,
+    contact_name: String!,
+    contact_number: String! @rules(apply: ["min:11"]), 
+  ): Contact! @update
+
+
+  # Delete contact
+  deleteContact(
+    id: ID!,
+  ): Contact! @delete
+
+  #Upsert contact
+  upsertContact(
+    id: ID!,
+    contact_name: String!,
+    contact_number: String! @rules(apply: ["min:11"]), 
+  ): Contact! @upsert
+}
+
+# TYPE
+type Contact {
+  id: ID,
+  contact_name: String,
+  contact_number: String,
+  owner: User @belongsTo
+}
