@@ -1,7 +1,7 @@
 # QUERY
 extend type Query {
-  contacts: [Contact!]! @paginate
-  contact(id: ID @eq): Contact @find
+  listContacts: [Contact!]! @paginate
+  viewContact(id: ID @eq): Contact @find
 }
 
 # MUTATION
